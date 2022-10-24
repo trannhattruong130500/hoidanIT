@@ -1,4 +1,5 @@
 import db from '../models/index'
+import CRUDService from '../services/CRUDService'
 
 let getHomePage = async (req, res) => {
     try {
@@ -17,14 +18,50 @@ let getAboutPage = (req, res) => {
 let getCRUD = (req, res) => {
     return res.render('crud.ejs')
 }
-let postCRUD = (req, res) => {
-    console.log(req.body)
-    return res.send('hello react')
+let postCRUD = async (req, res) => {
+    let data = await CRUDService.creatNewUser(req.body)
+    console.log(data)
+    return res.send('Create succeed!!!')
+}
+
+let displayGetCRUD = async (req, res) => {
+    let data = await CRUDService.getAllUsers();
+    return res.render('displayCRUD.ejs', {
+        dataTable: data
+    })
+}
+
+let getEditCRUD = async (req, res) => {
+    let userId = req.query.id;
+    if (userId) {
+        let userData = await CRUDService.getUserInfoById(userId)
+        return res.render('editCRUD.ejs', {
+            user: userData
+        })
+    } else {
+        return res.send('User not found!')
+    }
+}
+
+let putCRUD = async (req, res) => {
+    let allUsers = await CRUDService.updateUserData(req.body)
+    return res.render('displayCRUD.ejs', {
+        dataTable: allUsers
+    })
+}
+
+let deleteCRUD = async (req, res) => {
+    await CRUDService.deleteUserById(req.query.id)
+    return res.send('Delete succeed!')
 }
 
 module.exports = {
     getHomePage: getHomePage,
     getAboutPage: getAboutPage,
     getCRUD: getCRUD,
-    postCRUD: postCRUD
+    postCRUD: postCRUD,
+    displayGetCRUD: displayGetCRUD,
+    getEditCRUD: getEditCRUD,
+    putCRUD: putCRUD,
+    deleteCRUD: deleteCRUD
 }
