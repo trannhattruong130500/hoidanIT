@@ -23,7 +23,6 @@ let creatNewUser = async (data) => {
     })
 
 }
-
 let hashUserPassword = (password) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -34,6 +33,8 @@ let hashUserPassword = (password) => {
         }
     })
 }
+
+
 let getAllUsers = () => {
     return new Promise(async (resolve, reject) => {
         try {

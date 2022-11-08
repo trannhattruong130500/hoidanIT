@@ -20,7 +20,6 @@ let getCRUD = (req, res) => {
 }
 let postCRUD = async (req, res) => {
     let data = await CRUDService.creatNewUser(req.body)
-    console.log(data)
     return res.send('Create succeed!!!')
 }
 
