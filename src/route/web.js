@@ -8,7 +8,6 @@ let initWebRoutes = (app) => {
     router.get('/', homeController.getHomePage);
     router.get('/about', homeController.getAboutPage);
     router.get('/crud', homeController.getCRUD);
-
     router.post('/post-crud', homeController.postCRUD);
     router.get('/get-crud', homeController.displayGetCRUD);
     router.get('/edit-crud', homeController.getEditCRUD);
@@ -21,6 +20,7 @@ let initWebRoutes = (app) => {
     router.delete('/api/delete-user', userController.handleDeleteUser);
     router.put('/api/edit-user', userController.handleEditUser);
 
+    router.get('/allcode', userController.getAllCode);
 
     return app.use('/', router)
 }
